@@ -7,6 +7,7 @@ Created on Thu Apr  7 10:29:15 2022
 
 import csv
 
+SHIFT_PAYMENT = 3000
 
 def creation():
     
@@ -114,9 +115,8 @@ def check():
 
     shifts = making_shifts()
     bonus = 0
-    shift_payment = 3000
     days = len(shifts)
-    earnings = days * shift_payment
+    earnings = days * SHIFT_PAYMENT
     
     for i in range(days):
         bonus += shifts[i][2]
@@ -240,4 +240,5 @@ def main():
         main()
     else:
         raise SystemExit
+        
 main()
