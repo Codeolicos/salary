@@ -8,6 +8,8 @@ Created on Thu Apr  7 10:29:15 2022
 import csv
 
 SHIFT_PAYMENT = 3000
+MIN_SALARY = 30000
+SALES_THRESHOLD = 20000
 
 def creation():
     
@@ -44,17 +46,19 @@ def making_shifts():
 def daily_bonus(sales):
     
     """ This function takes sales as argument, counts daily bonus
-    and return it as a result """
+    and return it as a result. """
     
-    bonus_number = sales // 1000
+    extra_sales = sales - SALES_THRESHOLD
     
-    if bonus_number > 12:
-        bonus = (bonus_number - 12) * 100
+    # For any 1000 of sales above the threshold there is 100 bonus, so I use
+    # this formula to round the value
+    
+    if extra_sales >= 1000:
+        bonus = extra_sales // 1000 * 100
     else:
         bonus = 0
         
     return bonus
-
 
 def shifts_info():
     
@@ -123,9 +127,9 @@ def check():
         
     total = earnings + bonus
     
-    if total > 20000:
-        salary = total - 20000
-        prepayment = 20000
+    if total > MIN_SALARY:
+        salary = total - MIN_SALARY
+        prepayment = MIN_SALARY
     else:
         prepayment = total
         salary = 0
