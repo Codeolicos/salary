@@ -15,8 +15,26 @@ def creation():
     
     """ Creates new csv file in order to replace fixed records """
     
-    file = open("This_month.csv", "w")
+    file = open("Sal_this_momth.csv", "w")
     file.close()
+    
+def file_check():
+    
+    """ Checks if csv file exists at the moment, warns if it doesn't """
+    
+    try:
+        file = open("Sal_this_month.csv")
+        file.close()
+        
+    except FileNotFoundError:
+        print('File do not exist.')
+        print('You can create a new one by choosing "Add new shifts" option.')
+        main()
+        
+    except IOError:
+        print("IOError occured")
+        print('You can create a new file by choosing "Add new shifts" option.')
+        main()
     
 def check_number(number, message):
     
@@ -34,7 +52,7 @@ def making_shifts():
     
     """ Creating and returning list of lists with shifts from csv file """
     
-    file = open("This_month.csv", "r")
+    file = open("Sal_this_momth.csv", "r")
     shifts = []
     for shift in file:
         shift = [int(elem) for elem in shift.split(", ")]
@@ -75,7 +93,7 @@ def making_record(shift):
     """ Turning shift (list) into a record (string) and appending
         it to file"""
     
-    file = open("This_month.csv", "a")
+    file = open("Sal_this_momth.csv", "a")
     new_record = str(shift)
     new_record = new_record[1:-1] + "\n"
     file.write(new_record)
@@ -211,8 +229,8 @@ def fix():
         main()
     else:
         raise SystemExit
-    
-    
+        
+        
 def main():
     
     """ This function runs the program """
@@ -221,18 +239,25 @@ def main():
     print("2) View your salary")
     print("3) View days you've worked")
     print("4) Fix mistake in records")
-    selection = input("Make a selection: \n")
+    print("5) Quit program", end="\n\n")
+    
+    selection = input("Make a selection: \n\n")
     
     if selection == "1":
         recording()
     elif selection == "2":
+        file_check()
         shifts_info()
         check()
     elif selection == "3":
+        file_check()
         check_dates()
     elif selection == "4":
+        file_check()
         shifts_info()
         fix()
+    elif selection == "5":
+        raise SystemExit
     else:
         print("Invalid option, try again")
         main()
