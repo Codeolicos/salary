@@ -15,7 +15,7 @@ def creation():
     
     """ Creates new csv file in order to replace fixed records """
     
-    file = open("Sal_this_momth.csv", "w")
+    file = open("Sal_this_month.csv", "w")
     file.close()
     
 def file_check():
@@ -27,7 +27,7 @@ def file_check():
         file.close()
         
     except FileNotFoundError:
-        print('File do not exist.')
+        print('File does not exist.')
         print('You can create a new one by choosing "Add new shifts" option.')
         main()
         
@@ -52,7 +52,7 @@ def making_shifts():
     
     """ Creating and returning list of lists with shifts from csv file """
     
-    file = open("Sal_this_momth.csv", "r")
+    file = open("Sal_this_month.csv", "r")
     shifts = []
     for shift in file:
         shift = [int(elem) for elem in shift.split(", ")]
@@ -93,7 +93,7 @@ def making_record(shift):
     """ Turning shift (list) into a record (string) and appending
         it to file"""
     
-    file = open("Sal_this_momth.csv", "a")
+    file = open("Sal_this_month.csv", "a")
     new_record = str(shift)
     new_record = new_record[1:-1] + "\n"
     file.write(new_record)
